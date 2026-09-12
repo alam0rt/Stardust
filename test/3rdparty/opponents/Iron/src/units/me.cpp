@@ -21,7 +21,7 @@
 #include "../strategy/walling.h"
 #include "../strategy/wraithRush.h"
 #include "../strategy/zerglingRush.h"
-#include "../strategy/ShallowTwo.h"
+#include "../strategy/shallowTwo.h"
 #include "../interactive.h"
 #include "../Iron.h"
 

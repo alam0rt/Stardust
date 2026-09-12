@@ -11,7 +11,7 @@ file(GLOB_RECURSE HORIZON_SRC_FILES ${PROJECT_SOURCE_DIR}/Horizon/*.cpp)
 set(MCRAVE_INCLUDES
         ${PROJECT_SOURCE_DIR}/BWEM
         ${PROJECT_SOURCE_DIR}/BWEB
-        ${PROJECT_SOURCE_DIR}/HORIZON
+        ${PROJECT_SOURCE_DIR}/Horizon
         )
 include_directories(${MCRAVE_INCLUDES})
 

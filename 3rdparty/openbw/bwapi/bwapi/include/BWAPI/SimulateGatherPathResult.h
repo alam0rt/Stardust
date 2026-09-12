@@ -2,6 +2,7 @@
 
 #include "ExactPosition.h"
 
+#include <memory>
 #include <vector>
 
 // Forwards

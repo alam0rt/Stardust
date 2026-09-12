@@ -12,7 +12,7 @@
 #define DEBUG_H
 
 #include <BWAPI.h>
-#include "BWEM/src/winutils.h"
+#include "bwem/src/winutils.h"
 #include "defs.h"
 #include "utils.h"
 

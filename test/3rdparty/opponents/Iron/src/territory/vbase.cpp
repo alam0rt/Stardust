@@ -10,7 +10,7 @@
 
 #include "vbase.h"
 #include "stronghold.h"
-#include "../territory/vgridmap.h"
+#include "../territory/vgridMap.h"
 #include "../units/cc.h"
 #include "../units/refinery.h"
 #include "../behavior/constructing.h"

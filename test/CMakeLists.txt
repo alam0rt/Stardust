@@ -10,9 +10,16 @@ add_subdirectory(3rdparty/googletest)
 add_subdirectory(3rdparty/opponents/Steamhammer)
 add_subdirectory(3rdparty/opponents/Locutus)
 add_subdirectory(3rdparty/opponents/Iron)
-add_subdirectory(3rdparty/opponents/BananaBrain)
-add_subdirectory(3rdparty/opponents/SAIDA)
 add_subdirectory(3rdparty/opponents/McRave)
+
+# BananaBrain and SAIDA are not redistributed (see Readme.md), so only build them and their tests when their sources are present
+set(OPTIONAL_OPPONENTS)
+foreach(opponent BananaBrain SAIDA)
+    if(EXISTS ${PROJECT_SOURCE_DIR}/3rdparty/opponents/${opponent})
+        add_subdirectory(3rdparty/opponents/${opponent})
+        list(APPEND OPTIONAL_OPPONENTS ${opponent})
+    endif()
+endforeach()
 
 include_directories(SYSTEM
         ${CMAKE_SOURCE_DIR}/3rdparty/openbw/bwapi/bwapi/Util/Source
@@ -36,6 +43,13 @@ include_directories(${STARDUST_TEST_INCLUDES})
 
 file(GLOB_RECURSE SRC_FILES ${PROJECT_SOURCE_DIR} *.cpp)
 list(FILTER SRC_FILES EXCLUDE REGEX ".*3rdparty.*")
+if(NOT BananaBrain IN_LIST OPTIONAL_OPPONENTS)
+    # Crona tests use the BananaBrain module, and Surrender uses addBananaBrainModule from FullGame/BananaBrain.cpp
+    list(FILTER SRC_FILES EXCLUDE REGEX ".*/(FullGame/(BananaBrain|Crona)|plays/Defensive/DefendBase_WorkerDefense_Crona|plays/Scouting/EarlyGameWorkerScoutTests|Misc/Surrender)\\.cpp$")
+endif()
+if(NOT SAIDA IN_LIST OPTIONAL_OPPONENTS)
+    list(FILTER SRC_FILES EXCLUDE REGEX ".*/FullGame/SAIDA\\.cpp$")
+endif()
 
 # Uncomment this to disable optimizations on a specific file while debugging something
 #SET_SOURCE_FILES_PROPERTIES(${PROJECT_SOURCE_DIR}/MiningOptimizationTraining/DataModel/GatherArrivalData.cpp PROPERTIES COMPILE_FLAGS -O0)
@@ -63,7 +77,7 @@ if (CMAKE_BUILD_TYPE MATCHES RelWithDebInfo)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=address,undefined -fsanitize-recover=address,undefined -g")
 endif()
 
-target_link_libraries(tests gtest gtest_main BWAPI BWAPILIB Stardust Steamhammer Locutus Iron BananaBrain SAIDA McRave)
+target_link_libraries(tests gtest gtest_main BWAPI BWAPILIB Stardust Steamhammer Locutus Iron McRave ${OPTIONAL_OPPONENTS})
 target_compile_options(tests PRIVATE -Wall -Werror)
 
 file(COPY ${CMAKE_SOURCE_DIR}/test/3rdparty/maps DESTINATION ${CMAKE_CURRENT_BINARY_DIR})

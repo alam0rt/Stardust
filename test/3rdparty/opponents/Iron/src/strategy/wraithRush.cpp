@@ -11,7 +11,7 @@
 #include "wraithRush.h"
 #include "baseDefense.h"
 #include "../units/army.h"
-#include "../behavior/VChasing.h"
+#include "../behavior/vchasing.h"
 #include "../Iron.h"
 
 namespace { auto & bw = Broodwar; }

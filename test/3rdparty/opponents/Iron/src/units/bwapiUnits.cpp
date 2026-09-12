@@ -11,7 +11,7 @@
 #include "bwapiUnits.h"
 #include "../behavior/behavior.h"
 #include "../behavior/chasing.h"
-#include "../behavior/Vchasing.h"
+#include "../behavior/vchasing.h"
 #include "../behavior/repairing.h"
 #include "../behavior/constructing.h"
 #include "../territory/vgridMap.h"

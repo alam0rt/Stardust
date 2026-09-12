@@ -15,7 +15,7 @@
 #include "../units/cc.h"
 #include "../units/turret.h"
 #include "../territory/stronghold.h"
-#include "../territory/vgridmap.h"
+#include "../territory/vgridMap.h"
 #include "../territory/vbase.h"
 #include "../territory/wall.h"
 #include "../strategy/strategy.h"

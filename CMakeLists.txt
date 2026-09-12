@@ -19,6 +19,15 @@ IF(MSVC)
 ELSE(MSVC)
     set(CMAKE_OSX_DEPLOYMENT_TARGET 13.0)
 
+    # Static libraries (BWEM, zstd, ...) are linked into the shared Stardust library. Apple toolchains emit PIC by default, Linux does not.
+    set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+
+    # The test binary loads Stardust and every opponent bot into one process, and several bundle their own copies of the same code
+    # (e.g. Locutus and Steamhammer both define a global `fap` of different sizes, and BWEM is bundled more than once). ELF resolves
+    # same-named symbols to the first definition loaded, so a library can end up using another library's globals; macOS's two-level
+    # namespace keeps them apart. -Bsymbolic binds each library's references to its own definitions.
+    set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -Wl,-Bsymbolic")
+
     set(OPENBW_DIR ${CMAKE_SOURCE_DIR}/3rdparty/openbw/openbw)
     add_subdirectory(3rdparty/openbw/bwapi)
 ENDIF(MSVC)

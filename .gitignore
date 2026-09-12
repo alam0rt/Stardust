@@ -11,3 +11,5 @@ cmake-build-relwithdebinfo
 msvc
 out
 CMakeSettings.json
+/build/
+/result

@@ -7,7 +7,7 @@
 #include <functional>
 #include <sstream>
 
-#include <bwapi.h>
+#include <BWAPI.h>
 
 struct BWTest;
 
